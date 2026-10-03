@@ -8,7 +8,7 @@ Sistem, harici bir zamanlayıcıya (cron/systemd timer) ihtiyaç duymadan kendi 
 
 ## 🚀 Öne Çıkan Özellikler
 
-- **Otonom Daemon Yapısı:** `runner.sh` ana betiği kendi içinde sonsuz döngü barındırır. Her 60 saniyede bir güvenlik politikalarını tazeleyerek kesintisiz koruma sağlar.
+- **Otonom Daemon Yapısı:** `master.sh` ana betiği kendi içinde sonsuz döngü barındırır. Her 60 saniyede bir güvenlik politikalarını tazeleyerek kesintisiz koruma sağlar.
 - **Fail-Closed Kill-Switch:** `nftables` üzerindeki varsayılan çıkış politikası `DROP` olarak kilitlenmiştir. Yalnızca Tor prosesine (`TOR_UID`) izin verilir; ham paketlerin ağ arabirimine çıkışı engellenir.
 - **Arka Plan Watcher (Dead-Man's Switch):** Arka planda çalışan izleyici daemon, Tor TransPort (`9040`) durumunu 2 saniyede bir kontrol eder. Tünelin kopması durumunda ağı anında kilitler (`Blackhole Drop`).
 - **Şeffaf Ağ & DNS Hijacking:** Tüm TCP trafiği Tor TransPort'a (`9040`), tüm DNS sorguları ise Tor DNSPort'a (`5353`) yönlendirilir.
@@ -25,7 +25,7 @@ Tüm modüller ve ana çalıştırıcı betik aynı kök dizin içerisinde yer a
 
 ```text
 .
-├── runner.sh                          # Otonom ana orkestratör ve daemon betiği
+├── master.sh                          # Otonom ana orkestratör ve daemon betiği
 ├── 01-kernel-memory-purge.sh          # RAM ve iz temizleme modülü
 ├── 02-network-check.sh                # Ağ durumu ve arayüz kontrol modülü
 ├── 03-tor-network-isolation.sh        # Tor TransPort, nftables Kill-Switch & Watcher
